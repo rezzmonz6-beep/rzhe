@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TRIMER ROLEPLAY — GETEA</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            color: white;
+            background:
+                radial-gradient(
+                    circle at 50% 10%,
+                    rgba(28, 76, 170, .24),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #05070b,
+                    #0a0f18 50%,
+                    #020305
+                );
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #1554c7;
+            filter: blur(180px);
+            opacity: .12;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            background: rgba(3,5,9,.72);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            color: #4285ff;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .online {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: calc(100vh - 75px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 70px 20px 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeUp .8s ease;
+        }
+
+        .logo {
+            width: 240px;
+            max-width: 65vw;
+            filter:
+                drop-shadow(0 0 15px rgba(30,90,220,.45))
+                drop-shadow(0 15px 30px rgba(0,0,0,.8));
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 15px;
+            border: 1px solid rgba(70,130,255,.35);
+            background: rgba(30,80,180,.12);
+            border-radius: 50px;
+            color: #6ea0ff;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 7vw, 75px);
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -3px;
+        }
+
+        h1 span {
+            color: #397cff;
+            text-shadow: 0 0 30px rgba(57,124,255,.25);
+        }
+
+        .subtitle {
+            margin: 20px auto 30px;
+            max-width: 650px;
+            color: #8d96a8;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .join-btn {
+            border: none;
+            cursor: pointer;
+            padding: 15px 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1765ff, #0b3da5);
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            box-shadow:
+                0 10px 30px rgba(20,85,220,.25),
+                inset 0 1px rgba(255,255,255,.2);
+            transition: .25s;
+        }
+
+        .join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(20,85,220,.4);
+        }
+
+        /* =========================
+           INFO CARDS
+        ========================= */
+
+        .cards {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            padding: 20px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card strong {
+            display: block;
+            color: white;
+            margin-bottom: 7px;
+        }
+
+        .card small {
+            color: #737d90;
+        }
+
+        /* =========================
+           ROLEPLAY GUIDE
+        ========================= */
+
+        .rules-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto 100px;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            margin: 15px 0 12px;
+            letter-spacing: -2px;
+        }
+
+        .section-title h2 span {
+            color: #397cff;
+        }
+
+        .section-title p {
+            color: #7f899b;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .rule-card {
+            display: flex;
+            gap: 18px;
+            padding: 22px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.012)
+                );
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 16px;
+            transition: .25s;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(57,124,255,.35);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(30,80,180,.12),
+                    rgba(255,255,255,.02)
+                );
+        }
+
+        .rule-number {
+            min-width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: rgba(45,105,255,.12);
+            border: 1px solid rgba(55,120,255,.2);
+            color: #4c8aff;
+            font-weight: 900;
+            font-size: 12px;
+        }
+
+        .rule-card h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .rule-card p {
+            color: #818b9d;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .rules-note {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            background: rgba(35,95,220,.08);
+            border: 1px solid rgba(55,120,255,.15);
+            color: #8994a8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .rules-note strong {
+            color: #fff;
+        }
+
+        .rules-note b {
+            color: #4c8aff;
+        }
+
+        /* =========================
+           POPUP
+        ========================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.78);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 430px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18,25,39,.98),
+                    rgba(5,8,13,.98)
+                );
+            border: 1px solid rgba(67,126,255,.25);
+            border-radius: 22px;
+            padding: 30px;
+            text-align: center;
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.7),
+                0 0 40px rgba(30,90,220,.12);
+            transform: scale(.9) translateY(20px);
+            transition: .3s;
+        }
+
+        .overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-logo {
+            width: 120px;
+            margin-bottom: 15px;
+            filter: drop-shadow(
+                0 0 18px rgba(50,110,255,.35)
+            );
+        }
+
+        .modal h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            color: #8993a5;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .wa-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 11px;
+            background: #168c4d;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .wa-btn:hover {
+            background: #1aaa5d;
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            margin-top: 12px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.04);
+            color: #9ba4b5;
+            border-radius: 11px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,.08);
+            color: white;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            margin-top: 30px;
+            width: 100%;
+            text-align: center;
+            color: #4d5666;
+            font-size: 11px;
+            padding-bottom: 25px;
+        }
+
+        /* =========================
+           ANIMATION
+        ========================= */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 700px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .hero {
+                align-items: flex-start;
+                padding-top: 60px;
+            }
+
+            .logo {
+                width: 190px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                margin-top: 40px;
+            }
+
+            .rules-section {
+                margin-top: 60px;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rule-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="nav-logo">
+            <img src="374132.jpg" alt="Trimer Roleplay">
+
+            <div>
+                TRIMER <span>RP</span>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="online"></div>
+            COMMUNITY ONLINE
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <img
+                    src="374132.jpg"
+                    class="logo"
+                    alt="Trimer Roleplay Logo"
+                >
+
+                <div class="badge">
+                    GETEA • SA-MP ROLEPLAY
+                </div>
+
+                <h1>
+                    TRIMER <span>ROLEPLAY</span>
+                </h1>
+
+                <p class="subtitle">
+                    Selamat datang di komunitas resmi Trimer Roleplay.
+                    Bergabung bersama komunitas Getea dan dapatkan
+                    informasi terbaru seputar server, update, event,
+                    dan berbagai aktivitas Roleplay lainnya.
+                </p>
+
+                <button
+                    class="join-btn"
+                    onclick="openPopup()">
+                    GABUNG GRUP WHATSAPP
+                </button>
+
+
+                <div class="cards">
+
+                    <div class="card">
+                        <strong>🎮 SA-MP Roleplay</strong>
+                        <small>
+                            Komunitas pemain Trimer Roleplay.
+                        </small>
+                    </div>
+
+                    <div class="card">
+                        <strong>📢 Information</strong>
+                        <small>
+                            Update server dan informasi terbaru.
+                        </small>
+                    </div>
+
+                    <div class="card">
+                        <strong>⚡ Community</strong>
+                        <small>
+                            Tempat berkumpulnya para player Getea.
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ROLEPLAY GUIDE
+        ========================= -->
+
+        <section class="rules-section">
+
+            <div class="section-title">
+
+                <div class="badge">
+                    GETEA • ROLEPLAY GUIDE
+                </div>
+
+                <h2>
+                    Panduan <span>Roleplay</span>
+                </h2>
+
+                <p>
+                    Masih bingung istilah-istilah RP?
+                    Santai, cek panduan singkat di bawah ini
+                    sebelum mulai bermain di kota.
+                </p>
+
+            </div>
+
+
+            <div class="rules-grid">
+
+
+                <!-- 01 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🎭 RP — Roleplay
+                        </h3>
+
+                        <p>
+                            Main sebagai karakter seolah-olah hidup
+                            di dunia nyata. Tindakan dan cerita karakter
+                            harus tetap masuk akal.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 02 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            👤 IC — In Character
+                        </h3>
+
+                        <p>
+                            Semua hal yang dilakukan karakter lu
+                            di dalam dunia game. Anggap aja lu
+                            benar-benar jadi karakter tersebut.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 03 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            💬 OOC — Out Of Character
+                        </h3>
+
+                        <p>
+                            Hal yang berhubungan sama diri lu di luar
+                            karakter. Jangan asal dicampur dengan
+                            kejadian IC.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 04 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        04
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🧠 MG — Meta Gaming
+                        </h3>
+
+                        <p>
+                            Pakai info yang lu dapat dari luar game
+                            untuk kepentingan karakter. Contoh:
+                            info dari Discord atau WA dipakai langsung
+                            buat tindakan IC.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 05 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        05
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            ⚡ PG — Power Gaming
+                        </h3>
+
+                        <p>
+                            Melakukan sesuatu yang nggak masuk akal
+                            atau terlalu memaksakan RP ke orang lain
+                            tanpa kasih mereka kesempatan merespons.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 06 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        06
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🔀 Mixing
+                        </h3>
+
+                        <p>
+                            Nyampurin urusan IC dan OOC.
+                            Misalnya ngomongin masalah OOC
+                            seolah-olah itu bagian dari cerita IC.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 07 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        07
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🚫 Non-RP
+                        </h3>
+
+                        <p>
+                            Melakukan tindakan yang nggak sesuai
+                            logika kehidupan nyata atau sengaja
+                            merusak jalannya RP.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 08 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        08
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            😨 Fear RP
+                        </h3>
+
+                        <p>
+                            Karakter harus menunjukkan rasa takut
+                            atau waspada ketika menghadapi situasi
+                            yang benar-benar berbahaya.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 09 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        09
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            ✋ Force RP
+                        </h3>
+
+                        <p>
+                            Jangan menentukan hasil RP orang lain
+                            seenaknya. Kasih kesempatan player lain
+                            buat merespons tindakan lu.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 10 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        10
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            💀 DM — Deathmatch
+                        </h3>
+
+                        <p>
+                            Menyerang atau membunuh player tanpa
+                            alasan IC dan alur RP yang jelas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 11 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        11
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🎯 RDM — Random Deathmatch
+                        </h3>
+
+                        <p>
+                            Membunuh atau menyerang orang secara random
+                            tanpa interaksi dan alasan RP yang valid.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 12 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        12
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🚗 VDM — Vehicle Deathmatch
+                        </h3>
+
+                        <p>
+                            Sengaja memakai kendaraan buat menyerang
+                            atau membunuh player tanpa alasan RP yang
+                            jelas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 13 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        13
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🔥 RK — Revenge Kill
+                        </h3>
+
+                        <p>
+                            Balik menyerang atau membunuh orang
+                            hanya karena sebelumnya karakter lu
+                            dibunuh atau kalah dalam RP.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 14 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        14
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🏠 Return To Death
+                        </h3>
+
+                        <p>
+                            Jangan langsung balik ke lokasi lu mati
+                            buat ikut lagi dalam situasi yang sama
+                            sebelum RP tersebut selesai.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 15 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        15
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            💥 Spawn Kill
+                        </h3>
+
+                        <p>
+                            Jangan menyerang atau membunuh player
+                            yang baru spawn tanpa alasan dan situasi
+                            RP yang sesuai.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 16 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        16
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🚘 DDB — Driver Drive-By
+                        </h3>
+
+                        <p>
+                            Penyalahgunaan kendaraan saat menyerang,
+                            misalnya menembak dari posisi driver atau
+                            sengaja memakai kendaraan untuk menekan
+                            player secara nggak wajar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 17 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        17
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🚙 Car Ramming
+                        </h3>
+
+                        <p>
+                            Sengaja menabrak-nabrakkan kendaraan
+                            ke player atau kendaraan lain tanpa
+                            alasan RP yang masuk akal.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 18 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        18
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🏃 Bunny Hop
+                        </h3>
+
+                        <p>
+                            Lompat terus-menerus buat mempercepat
+                            gerakan atau menghindari situasi RP.
+                            Main sewajarnya.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 19 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        19
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🐔 Chicken Running
+                        </h3>
+
+                        <p>
+                            Lari zig-zag atau nggak realistis cuma
+                            buat menghindari serangan atau tembakan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 20 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        20
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🏊 Olympic Swimming
+                        </h3>
+
+                        <p>
+                            Kabur lewat air dengan cara yang nggak
+                            masuk akal cuma supaya lolos dari
+                            suatu situasi RP.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 21 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        21
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🚪 Combat Log
+                        </h3>
+
+                        <p>
+                            Jangan sengaja keluar game, quit, atau
+                            bikin disconnect buat kabur dari RP,
+                            pengejaran, atau situasi yang sedang berjalan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 22 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        22
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            ❌ Refuse RP
+                        </h3>
+
+                        <p>
+                            Jangan sengaja menghindari atau menolak
+                            RP yang sedang berlangsung tanpa alasan
+                            yang jelas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 23 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        23
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🛠️ RP Abuse
+                        </h3>
+
+                        <p>
+                            Memanfaatkan sistem atau mekanisme RP
+                            secara berlebihan buat keuntungan sendiri
+                            sampai merugikan jalannya RP player lain.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 24 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        24
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🐞 Bug Abuse
+                        </h3>
+
+                        <p>
+                            Sengaja memanfaatkan bug, glitch, atau
+                            kesalahan sistem buat mendapatkan keuntungan
+                            yang seharusnya nggak didapat.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 25 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        25
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🎬 Animation Abuse
+                        </h3>
+
+                        <p>
+                            Memanfaatkan animasi atau gerakan tertentu
+                            sebagai celah buat mendapatkan keuntungan
+                            yang nggak seharusnya.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 26 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        26
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            📱 OOC Abuse
+                        </h3>
+
+                        <p>
+                            Memakai masalah OOC, chat luar game,
+                            atau urusan pribadi buat mengganggu
+                            atau memengaruhi RP orang lain.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 27 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        27
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🗣️ Provoking
+                        </h3>
+
+                        <p>
+                            Sengaja mancing player lain supaya marah,
+                            berantem, atau melakukan pelanggaran
+                            hanya demi bikin keributan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 28 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        28
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            📢 OOC During RP
+                        </h3>
+
+                        <p>
+                            Jangan memakai obrolan OOC sembarangan
+                            untuk mengacaukan situasi RP yang sedang
+                            berjalan. Kalau ada masalah, selesaikan
+                            setelah RP selesai.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 29 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        29
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🎭 Non-RP Behavior
+                        </h3>
+
+                        <p>
+                            Jangan bertingkah seenaknya sampai
+                            mengganggu suasana atau alur RP player
+                            lain.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 30 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        30
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🤝 Respect Player
+                        </h3>
+
+                        <p>
+                            Tetap saling menghargai. Jangan bawa
+                            masalah IC ke OOC atau sebaliknya,
+                            dan jangan sengaja mencari keributan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 31 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        31
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            🔐 Account Abuse
+                        </h3>
+
+                        <p>
+                            Jangan menyalahgunakan akun, sistem akun,
+                            atau fitur server untuk mendapatkan
+                            keuntungan yang nggak semestinya.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 32 -->
+
+                <div class="rule-card">
+
+                    <div class="rule-number">
+                        32
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            ⚙️ Server Abuse
+                        </h3>
+
+                        <p>
+                            Jangan sengaja mengeksploitasi sistem,
+                            command, atau mekanisme server untuk
+                            merugikan player lain.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="rules-note">
+
+                <strong>💡 Intinya:</strong>
+                Roleplay itu bukan soal siapa yang paling jago.
+                Yang penting <b>realistis, fair, dan saling menghargai.</b>
+
+                <br><br>
+
+                <small>
+                    Panduan ini adalah ringkasan umum konsep
+                    SA-MP Roleplay. Aturan resmi Trimer Roleplay
+                    dapat memiliki ketentuan tambahan.
+                </small>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         POPUP WHATSAPP
+    ========================= -->
+
+    <div
+        class="overlay"
+        id="popup">
+
+        <div class="modal">
+
+            <img
+                src="374132.jpg"
+                class="modal-logo"
+                alt="Trimer Roleplay"
+            >
+
+            <h2>
+                Gabung Community
+            </h2>
+
+            <p>
+                Kamu akan diarahkan menuju grup WhatsApp
+                resmi Trimer Roleplay. Pastikan kamu membaca
+                informasi dan peraturan yang tersedia
+                di dalam komunitas.
+            </p>
+
+            <a
+                href="https://chat.whatsapp.com/G8213wNltpKAi5j7CeVJ9B"
+                class="wa-btn"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                💬 JOIN GRUP WHATSAPP
+
+            </a>
+
+            <button
+                class="close-btn"
+                onclick="closePopup()">
+
+                Batal
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+        © 2026 Trimer Roleplay • Getea Community
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function openPopup() {
+            document
+                .getElementById("popup")
+                .classList.add("active");
+        }
+
+
+        function closePopup() {
+            document
+                .getElementById("popup")
+                .classList.remove("active");
+        }
+
+
+        document
+            .getElementById("popup")
+            .addEventListener("click", function(e) {
+
+                if (e.target === this) {
+                    closePopup();
+                }
+
+            });
+
+
+        document.addEventListener("keydown", function(e) {
+
+            if (e.key === "Escape") {
+                closePopup();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
